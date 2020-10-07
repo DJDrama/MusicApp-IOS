@@ -13,6 +13,7 @@
 		223858D2252DB65800D89CFA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 223858D1252DB65800D89CFA /* Preview Assets.xcassets */; };
 		223858DD252DB65900D89CFA /* MusicAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223858DC252DB65900D89CFA /* MusicAppTests.swift */; };
 		223858E8252DB65900D89CFA /* MusicAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223858E7252DB65900D89CFA /* MusicAppUITests.swift */; };
+		223858F9252DC5BE00D89CFA /* BlurEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223858F8252DC5BE00D89CFA /* BlurEffect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		223858E3252DB65900D89CFA /* MusicAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		223858E7252DB65900D89CFA /* MusicAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAppUITests.swift; sourceTree = "<group>"; };
 		223858E9252DB65900D89CFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		223858F8252DC5BE00D89CFA /* BlurEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			children = (
 				223858CA252DB65500D89CFA /* MusicAppApp.swift */,
 				223858CC252DB65500D89CFA /* ContentView.swift */,
+				223858F8252DC5BE00D89CFA /* BlurEffect.swift */,
 				223858CE252DB65800D89CFA /* Assets.xcassets */,
 				223858D3252DB65800D89CFA /* Info.plist */,
 				223858D0252DB65800D89CFA /* Preview Content */,
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				223858F9252DC5BE00D89CFA /* BlurEffect.swift in Sources */,
 				223858CD252DB65500D89CFA /* ContentView.swift in Sources */,
 				223858CB252DB65500D89CFA /* MusicAppApp.swift in Sources */,
 			);

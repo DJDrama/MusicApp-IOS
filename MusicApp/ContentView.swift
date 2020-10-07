@@ -54,15 +54,19 @@ struct ContentView: View {
                 Song( name: "Song 3", time: "2:36"),
                 Song( name: "Song 4", time: "2:36")])
     ]
-    var currentAlbum : Album?
+    @State private var currentAlbum : Album?
     var body: some View {
         NavigationView{
             ScrollView{
                 ScrollView(.horizontal, showsIndicators: false, content: {
-                    ForEach(self.albums, id: \.self, content: {
-                        album in
-                        AlbumArt(album: album)
-                    })
+                    LazyHStack {
+                        ForEach(self.albums, id: \.self, content: {
+                            album in
+                            AlbumArt(album: album).onTapGesture{
+                                self.currentAlbum = album
+                            }
+                        })
+                    }
                 })
                 LazyVStack{
                     ForEach((self.currentAlbum?.songs ?? self.albums.first?.songs) ?? [
@@ -75,7 +79,7 @@ struct ContentView: View {
                                 SongCell(song: song)
                             })
                 }
-            }
+            }.navigationTitle("My Band Name")
         }
     }
 }
@@ -83,27 +87,41 @@ struct ContentView: View {
 struct AlbumArt : View {
     var album: Album
     var body: some View {
-        ZStack{
-            Image(album.image).resizable().aspectRatio(contentMode: .fill).frame(width: 170, height: 200, alignment: .center)
-                .clipped().cornerRadius(20).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(20)
-        }
+        ZStack(alignment: .bottom, content:{
+            Image(album.image)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 170, height: 200, alignment: .center)
+            ZStack{
+                Blur(style: .dark)
+                Text(album.name).foregroundColor(.white)
+            }.frame(height: 60, alignment: .center)
+        }).frame(width: 170, height: 200, alignment: .center)
+        .clipped().cornerRadius(20).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/).padding(20)
     }
+
 }
 
 struct SongCell : View {
     var song: Song
     var body: some View {
-        EmptyView()
+        HStack{
+            ZStack{
+                Circle().frame(width: 50, height: 50, alignment: .center)
+                    .foregroundColor(.blue)
+                Circle().frame(width: 20, height: 20, alignment: .center)
+                    .foregroundColor(.white)
+            }
+            Text(song.name).bold()
+            Spacer()
+            Text(song.time)
+        }.padding(20)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        AlbumArt(album: Album(name: "Album 1", image: "1",
-                              songs: [
-                                Song( name: "Song 1", time: "2:36"),
-                                Song( name: "Song 2", time: "2:36"),
-                                Song( name: "Song 3", time: "2:36"),
-                                Song( name: "Song 4", time: "2:36")]))
+        SongCell(song: Song( name: "Song 1", time: "2:36"))
+        
     }
 }
