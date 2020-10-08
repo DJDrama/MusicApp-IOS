@@ -7,10 +7,18 @@
 
 import Foundation
 import SwiftUI
+import AVFoundation
+import Firebase
 
 struct PlayerView: View{
+    @State
     var album: Album
+    
+    @State
     var song: Song
+    
+    @State
+    var player = AVPlayer()
     
     @State
     var isPlaying: Bool = false
@@ -50,17 +58,59 @@ struct PlayerView: View{
                     }
                 }.edgesIgnoringSafeArea(.bottom).frame(height: 200, alignment: .center)
             }
+        }.onAppear(){
+            self.playSong()
         }
         
     }
     
+    func playSong(){
+        let storage = Storage.storage().reference(forURL: self.song.file)
+        storage.downloadURL { (url, error) in
+            if error != nil {
+                print(error)
+            }else{
+                do{
+                    //let music work despit of ringer
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+                }catch{
+                    //report for an error
+                }
+                player = AVPlayer(url: url!)
+                player.play()
+            }
+        }
+    }
+    
     func playPause(){
         self.isPlaying.toggle()
+        if isPlaying == false{
+            player.pause()
+        }else{
+            player.play()
+        }
     }
     func next(){
-        
+        if let currentIndex = album.songs.firstIndex(of: song){
+            if currentIndex == album.songs.count - 1{
+                //do nothing
+            }else{
+                player.pause()
+                song = album.songs[currentIndex+1]
+                self.playSong()
+            }
+        }
     }
     func previous(){
-        
+        if let currentIndex = album.songs.firstIndex(of: song){
+            if currentIndex == 0 {
+                //do nothing
+            }else{
+                player.pause()
+                song = album.songs[currentIndex-1]
+                self.playSong()
+            }
+        }
     }
 }
+
